@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .category {
+            border: 1px solid #ccc;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            width: 200px; /* Fixed width for category */
+            margin: 10px; /* Space between categories */
+            background-color: #416392; /* Dark background */
+            border-radius: 3px;
+            transition: transform 0.2s, box-shadow 0.2s; /* Smooth transition for hover effects */
+        }
+
+        .category img {
+            width: 100%; /* Full width of the category */
+            border-radius: 5px; /* Optional: rounded corners */
+        }
+
+        .category:hover {
+            transform: scale(1.05); /* Slightly enlarge the category */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Add shadow on hover */
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            max-width: 80%; /* Max width of the modal content */
+        }
+
+        .modal-content img {
+            width: 100%; /* Full width of the modal */
+            border-radius: 5px; /* Optional: rounded corners */
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="categories">
+    <!-- Category 1 -->
+    <div class="category" onclick="showModal('category1')">
+        <h3>Explore Pictures</h3>
+        <img src="pic01.png" alt="Nature 1">
+    </div>
+
+    <!-- Category 2 -->
+    <div class="category" onclick="showModal('category2')">
+        <h3>Rooms</h3>
+        <img src="room01.png" alt="Animal 1">
+    </div>
+
+    <!-- Category 3 -->
+    <div class="category" onclick="showModal('category3')">
+        <h3>Dining Table</h3>
+        <img src="Dining.png" alt="Architecture 1">
+    </div>
+
+    <!-- Category 4 -->
+    <div class="category" onclick="showModal('category4')">
+        <h3>Gym</h3>
+        <img src="gym01 (1).png" alt="Food 1">
+    </div>
+</div>
+
+<!-- Modal for displaying images -->
+<div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <div class="modal-content" id="modalContent">
+        <!-- Images will be added here dynamically -->
+    </div>
+</div>
+
+<script>
+    const images = {
+        category1: [
+            "pic01.png",
+            "pic02.png",
+            "pic03.png"
+        ],
+        category2: [
+            "room01.png",
+            "room02.png",
+            "room03.png"
+        ],
+        category3: [
+            "Dining.png"
+        ],
+        category4: [
+            "gym01 (1).png",
+            "gym01 (2).png"
+        ]
+    };
+
+    function showModal(categoryId) {
+        const modal = document.getElementById("myModal");
+        const modalContent = document.getElementById("modalContent");
+        modalContent.innerHTML = ''; // Clear previous images
+
+        // Add the images of the selected category to the modal
+        images[categoryId].forEach(src => {
+            const img = document.createElement("img");
+            img.src = src;
+            modalContent.appendChild(img);
+        });
+
+        modal.style.display = "flex"; // Show the modal
+    }
+
+    function closeModal() {
+        const modal = document.getElementById("myModal");
+        modal.style.display = "none"; // Hide the modal
+    }
+
+    // Close modal when clicking anywhere outside of it
+    window.onclick = function(event) {
+        const modal = document.getElementById("myModal");
+        if (event.target === modal) {
+            closeModal();
+        }
+    }
+</script>
+
+</body>
+</html>
